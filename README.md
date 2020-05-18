@@ -2,6 +2,8 @@
 
 ## Development Environment Setup
 
+Dev environment intended for UNIX/Linux operating systems
+
 ### Setup virtual environment
 - In the ardensi-backend root directory, execute `python3 -m venv .venv` to create a python 3 virtual environment.
 - Activate the virtual environment with  `source .venv/bin/activate`
@@ -19,6 +21,8 @@
 - Use `make deploy` to build and push service to gcloud server
 
 ## Deployment
+Use `make deploy` to push build to gcloud server, or:
 - Add dependencies to server library with `pip install -t lib -r requirements.txt`
 - To push to gcloud, execute in terminal: `gcloud app deploy --project divine-cortex-277508` where divine-cortex-277508 is the projectID
-- View live logs in terminal with `gcloud app logs tail -s default` NOTE: has delay
+
+View live logs in terminal with `gcloud app logs tail -s default` NOTE: has delay
