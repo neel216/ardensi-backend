@@ -1,7 +1,11 @@
+import os
+
 from flask import Flask, request, jsonify, abort
+from ardensi import config
 
 
 app = Flask(__name__)
+app.debug = config.ENV_DEV
 
 @app.route('/', methods=['GET'])
 def hello():
@@ -16,10 +20,6 @@ def test():
     message = req['message']
 
     ret = {
-        'body': f'{user} said - {message} - at this time.'
+        'body': f'{user} said - {message} - at this time from neel runton.'
     }
     return jsonify(ret), 200
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
