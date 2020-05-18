@@ -1,0 +1,12 @@
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT server:app
+
+runtime_config:
+  python_version: 3.6
+
+handlers:
+- url: /static
+  static_dir: static
+- url: /.*
+  script: server.app # [main] must match the name of the Flask server file, in this case it is called main.py so the script name is main.app
