@@ -22,7 +22,7 @@ Dev environment intended for UNIX/Linux operating systems
 
 ## Deployment
 Use `make deploy` to push build to gcloud server, or:
-- Add dependencies to server library with `pip install -t lib -r requirements.txt`
+- Add dependencies to server library with `pip3 install -t lib -r requirements.txt`
 - To push to gcloud, execute in terminal: `gcloud app deploy --project divine-cortex-277508` where divine-cortex-277508 is the projectID
 
 View live logs in terminal with `gcloud app logs tail -s default` NOTE: has delay
