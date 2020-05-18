@@ -18,11 +18,11 @@ Dev environment intended for UNIX/Linux operating systems
 ### Make Commands
 - Use `make run` while in virtual environment to start ardensi backend locally
 - Use `make clean` while in virtual environment to clean up dependencies
-- Use `make deploy` to build and push service to gcloud server
+- Use `make deploy` while in virtual environment to build and push service to gcloud server
 
 ## Deployment
 Use `make deploy` to push build to gcloud server, or:
-- Add dependencies to server library with `pip3 install -t lib -r requirements.txt`
+- Add dependencies to server library with `pip3 install -t lib -r requirements.txt` while in virtual environment
 - To push to gcloud, execute in terminal: `gcloud app deploy --project divine-cortex-277508` where divine-cortex-277508 is the projectID
 
 View live logs in terminal with `gcloud app logs tail -s default` NOTE: has delay
