@@ -2,6 +2,8 @@
 API functions for user account related actions
 '''
 from flask import request, jsonify, abort
+from uuid import uuid4
+from datetime import datetime
 
 from ardensi.application import app
 
@@ -20,8 +22,10 @@ def signup():
 
     # check if email domain is a verified college email domain - if it isn't, send back a 200 response but with a bad message
     
-    # determine what college the user goes to based on email and store it in variable
+    # determine what college the user goes to based on email
     
+    # generate timestamp for time_joined
+
     # generate user_id
     # add user to db
 

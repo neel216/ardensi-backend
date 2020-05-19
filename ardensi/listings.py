@@ -2,6 +2,8 @@
 API functions for listing related actions
 '''
 from flask import request, jsonify, abort
+from uuid import uuid4
+from datetime import datetime
 
 from ardensi.application import app
 
@@ -20,7 +22,7 @@ def create():
     description = req['body']['description']
     pay = req['body']['pay']
 
-    # generate listing creation timestamp
+    # generate listing creation timestamp for time_created
     # generate listing uuid number
 
     # add listing to db with buyer_user_id being null/None/empty
