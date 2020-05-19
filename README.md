@@ -21,7 +21,7 @@ Enter the virtual environment with  `source .venv/bin/activate`
 - Use `make run` while in virtual environment to start backend locally
 
 To deploy:
-- Use `make deploy` while in virtual environment to build and push service to gcloud server
+- Use `make deploy` to build and push service to gcloud server
 
 ## Deployment
 Use `make deploy` to push build to gcloud server, or:
