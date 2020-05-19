@@ -12,3 +12,5 @@ app.debug = config.ENV_DEV
 
 # Import all files for proper routing here
 import ardensi.testing
+import ardensi.users
+import ardensi.listings
