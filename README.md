@@ -32,3 +32,4 @@ View live logs in terminal with `gcloud app logs tail -s default` NOTE: has dela
 #### TODO
 - Add database stuff, right now thinking of using MySQL
 - Add content to empty api functions
+- Add phone number to user info?
