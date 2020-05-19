@@ -9,7 +9,7 @@ Development environment intended for Unix/Linux/Ubuntu operating systems
 - Activate the virtual environment with  `source .venv/bin/activate`
 
 ### Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts)
-- Login your Google Account credentials and make sure you're an editor on the ardensi-api gcloud project
+- Login with your Google Account credentials and make sure you're an editor on the ardensi-api gcloud project
 - Select `divine-cortex-277508` as the project
 
 ## Run Development Environment
