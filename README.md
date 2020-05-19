@@ -5,7 +5,7 @@
 Development environment intended for Unix/Linux/Ubuntu operating systems
 
 ### Setup virtual environment
-- In the ardensi-backend root directory, execute `python3 -m venv .venv` to create a python3 virtual environment
+- In the top-level directory, execute `python3 -m venv .venv` to create a python3 virtual environment
 - Activate the virtual environment with  `source .venv/bin/activate`
 
 ### Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts)
@@ -28,3 +28,7 @@ Use `make deploy` to push build to gcloud server, or:
 - Execute `gcloud beta app deploy --project divine-cortex-277508` in terminal
 
 View live logs in terminal with `gcloud app logs tail -s default` NOTE: has delay
+
+#### TODO
+- Add database stuff, right now thinking of using MySQL
+- Add content to empty api functions
