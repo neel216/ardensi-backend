@@ -9,4 +9,4 @@ handlers:
 - url: /static # TODO: find out if we really need this
   static_dir: static # TODO: find out if we really need this
 - url: /.*
-  script: server.app # [main] must match the name of the Flask server file, in this case it is called main.py so the script name is main.app
+  script: server.app

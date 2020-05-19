@@ -1,6 +1,5 @@
-import os
-
 from flask import Flask, request, jsonify, abort
+
 from ardensi import config
 
 
