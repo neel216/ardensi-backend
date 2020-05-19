@@ -3,4 +3,4 @@ Loads config from environment variables
 '''
 import os
 
-ENV_DEV = 'development' in os.getenv('FLASK_ENV', 'production')
+ENV_DEV = 'development' == os.getenv('FLASK_ENV', 'production')
