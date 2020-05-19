@@ -38,3 +38,13 @@ def buy():
 
     # return positive response
 
+@app.route('/listing.search', methods=['POST'])
+def search():
+    req = request.json
+
+    search_param = req['search']['param'] # college, title, main_cat, sub_cat
+    search_val = req['search']['val'] # value of search param
+
+    # search listing db for listings that satisfy search parameter and value and return them
+
+    # return positive response and listings that satisfy search query
