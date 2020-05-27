@@ -40,17 +40,14 @@ def parseSeconds(seconds):
     
     if deltaDays != 0:
         return f'{deltaDays} day' if deltaDays == 1 else f'{deltaDays} days'
-    
     else:
         deltaHours = int(seconds / 3600)
         seconds -= deltaHours * 3600
-        
+
         if deltaHours != 0:
             return f'{deltaHours} hour' if deltaHours == 1 else f'{deltaHours} hours'
-        
         else:
             deltaMinutes = int(seconds / 60)
-        
             if deltaMinutes != 0:
                 return f'{deltaMinutes} minute' if deltaMinutes == 1 else f'{deltaMinutes} minutes'
         
