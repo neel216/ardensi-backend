@@ -6,7 +6,7 @@ from uuid import uuid4
 from datetime import datetime
 
 from ardensi.application import app
-from ardensi.database import addListing, searchListings
+import ardensi.database as db
 
 
 @app.route('/listing.create', methods=['POST'])
@@ -41,7 +41,7 @@ def create():
         'buyer_college': None
     }
 
-    addListing(listing)
+    db.addListing(listing)
 
     ret = {
         'message': 'listing created'
@@ -58,10 +58,17 @@ def buy():
     buyer_first = req['buyer']['first']
     buyer_last = req['buyer']['last']
     buyer_email = req['buyer']['email']
+    buyer_college = req['buyer']['college']
 
-    # edit buyer_first buyer_last and buyer_email on listing of listing_id to include the buyer's info
+    db.buyListing(listing_id, buyer_first, buyer_last, buyer_email, buyer_college)
 
-    # return positive response    
+    # DO ANY STUFF WITH MONEY HERE
+
+    ret = {
+        'message': 'listing purchased'
+    }
+
+    return jsonify(ret), 200
 
 @app.route('/listing.search', methods=['POST'])
 def search():
@@ -70,7 +77,7 @@ def search():
     search_param = req['search']['param'] # 'college', 'title', 'main_category', 'sub_category'
     search_val = req['search']['val'] # value of search param
 
-    ret = searchListings(search_param, search_val)
+    ret = db.searchAvailableListings(search_param, search_val)
 
     return jsonify(ret), 200
 
@@ -82,4 +89,11 @@ def user():
     user_last = req['user']['last']
     user_email = req['user']['email']
 
-    query_type = req['type'] # can be 'available' listings (unsold listings), 'sold' listings, or 'purchased' listings
+    query_type = req['type'] # 'sold' listings, or 'purchased' listings
+
+    if query_type == 'sold':
+        ret = db.searchPurchasedListings('seller_email', user_email)
+        return jsonify(ret), 200
+    
+    ret = db.searchPurchasedListings('buyer_email', user_email)
+    return jsonify(ret), 200
