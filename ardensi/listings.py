@@ -6,7 +6,7 @@ from uuid import uuid4
 from datetime import datetime
 
 from ardensi.application import app
-from ardensi.database import addListing, searchListings, addUser
+from ardensi.database import addListing, searchListings
 
 
 @app.route('/listing.create', methods=['POST'])
@@ -70,7 +70,6 @@ def search():
     search_param = req['search']['param'] # 'college', 'title', 'main_category', 'sub_category'
     search_val = req['search']['val'] # value of search param
 
-    # search listing db for listings that satisfy search parameter and value and return them
     ret = searchListings(search_param, search_val)
 
     return jsonify(ret), 200
