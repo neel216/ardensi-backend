@@ -12,20 +12,19 @@ from ardensi.application import app
 def create():
     req = request.json
 
-    seller_id = req['seller']['user_id']
-    seller_email = req['seller']['college']
-
-    main_cat = req['category']['main']
-    sub_cat = req['category']['sub']
-
+    category = req['body']['category'] # parse this into main_category and sub_category after
     title = req['body']['title']
     description = req['body']['description']
     pay = req['body']['pay']
 
+    seller_first = req['seller']['first']
+    seller_last = req['seller']['last']
+    seller_email = req['seller']['email']
+
     # generate listing creation timestamp for time_created
     # generate listing uuid number
 
-    # add listing to db with buyer_user_id being null/None/empty
+    # add listing to db with buyer_first buyer_last and buyer_email being null/None/empty
 
     # return positive response
 
@@ -34,45 +33,14 @@ def buy():
     req = request.json
 
     listing_id = req['listing_id']
-    buyer_id = req['buyer']['user_id']
-
-    # edit buyer_user_id on listing of listing_id to include the buyer's user_id
-
-    # return positive response
-
-@app.route('/listing.temp', methods=['POST'])
-def temp():
-    req = request.json
-
-    search_param = req['search']['param'] # college, title, main_cat, sub_cat
-    search_val = req['search']['val'] # value of search param
-
-    ret = {'13453234': {'id': '13453234',
-                        'category': 'Miscellaneous - Music',
-                        'title': 'Looking for Piano Teacher',
-                        'college': 'UNC-Chapel Hill',
-                        'pay': '7/hr',
-                        'description': 'Looking for a piano teacher who can meet once a week and teach beginners. Right now, just looking to learn basic fundamentals of playing, but am very enthusiastic.',
-                        'time': '2 hours',
-                        'seller_first': 'Robert',
-                        'seller_last': 'Dimitrov',
-                        'seller_email': 'robertd223@unc.edu'
-                        },
-            '13545687': {'id': '13545687',
-                        'category': 'Tutoring - Computer Science',
-                        'title': 'Computer Science Tutor Needed',
-                        'college': 'UNC-Chapel Hill',
-                        'pay': '8/hr',
-                        'description': 'Looking for a computer science tutor who can assist with lessons relating to COMP 116. Specifically looking for guidance with data structures and object oriented programming in Python.',
-                        'time': '1 day',
-                        'seller_first': 'Robert',
-                        'seller_last': 'Dimitrov',
-                        'seller_email': 'robertd223@unc.edu'
-                        }
-    }
-
-    return jsonify(ret), 200
     
+    buyer_first = req['buyer']['first']
+    buyer_last = req['buyer']['last']
+    buyer_email = req['buyer']['email']
+
+    # edit buyer_first buyer_last and buyer_email on listing of listing_id to include the buyer's info
+
+    # return positive response    
 
 @app.route('/listing.search', methods=['POST'])
 def search():
@@ -129,3 +97,13 @@ def search():
     }
     # return positive response and listings that satisfy search query
     return jsonify(ret), 200
+
+@app.route('/listing.user', methods=['POST'])
+def user():
+    req = request.json
+
+    user_first = req['user']['first']
+    user_last = req['user']['last']
+    user_email = req['user']['email']
+
+    query_type = req['type'] # can be 'available' listings (unsold listings), 'sold' listings, or 'purchased' listings
