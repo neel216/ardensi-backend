@@ -6,27 +6,48 @@ from uuid import uuid4
 from datetime import datetime
 
 from ardensi.application import app
+from ardensi.database import addListing, searchListings, addUser
 
 
 @app.route('/listing.create', methods=['POST'])
 def create():
     req = request.json
 
-    category = req['body']['category'] # parse this into main_category and sub_category after
+    category = req['body']['category'].split(' - ')
     title = req['body']['title']
+    college = req['body']['college']
     description = req['body']['description']
     pay = req['body']['pay']
-
+    payment_type = req['body']['payType']
     seller_first = req['seller']['first']
     seller_last = req['seller']['last']
     seller_email = req['seller']['email']
 
-    # generate listing creation timestamp for time_created
-    # generate listing uuid number
+    listing = {
+        'time_created': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'id': str(uuid4()),
+        'main_category': category[0],
+        'sub_category': category[1],
+        'title': title,
+        'college': college,
+        'pay': f'{pay}{payment_type}',
+        'description': description,
+        'seller_first': seller_first,
+        'seller_last': seller_last,
+        'seller_email': seller_email,
+        'buyer_first': None,
+        'buyer_last': None,
+        'buyer_email': None,
+        'buyer_college': None
+    }
 
-    # add listing to db with buyer_first buyer_last and buyer_email being null/None/empty
+    addListing(listing)
 
-    # return positive response
+    ret = {
+        'message': 'listing created'
+    }
+
+    return jsonify(ret), 200
 
 @app.route('/listing.buy', methods=['POST'])
 def buy():
@@ -46,56 +67,12 @@ def buy():
 def search():
     req = request.json
 
-    search_param = req['search']['param'] # college, title, main_cat, sub_cat
+    search_param = req['search']['param'] # 'college', 'title', 'main_category', 'sub_category'
     search_val = req['search']['val'] # value of search param
 
     # search listing db for listings that satisfy search parameter and value and return them
-    ret = {'13453234': {'id': '13453234',
-                        'category': 'Miscellaneous - Textbooks',
-                        'title': 'Selling COMP 283 Textbook',
-                        'college': 'UNC-Chapel Hill',
-                        'pay': '70',
-                        'description': 'Selling used textbook for COMP 286: Discrete Structures. Textbook is in good condition, negligible wear. Paperback copy of Discrete Mathematics with Applications, 4th Edition, by Susanna S. Epp.',
-                        'time': '28 minutes',
-                        'seller_first': 'Neel',
-                        'seller_last': 'Runton',
-                        'seller_email': 'neelr216@unc.edu'
-                        },
-            '13545687': {'id': '13545687',
-                        'category': 'Tutoring - Science',
-                        'title': 'Chemistry Tutor Needed',
-                        'college': 'UNC-Chapel Hill',
-                        'pay': '8/hr',
-                        'description': 'Looking for a chemistry tutor who can assist with topics in CHEM 102. Specifically looking for help with chemical equilibria and thermochemistry. Can meet Wednesdays and Fridays.',
-                        'time': '1 hour',
-                        'seller_first': 'Martin',
-                        'seller_last': 'Ha',
-                        'seller_email': 'mha64@unc.edu'
-                        },
-            '13587946': {'id': '13587946',
-                        'category': 'Business Consulting - Programming',
-                        'title': 'Full-Stack Developer Needed',
-                        'college': 'UNC-Chapel Hill',
-                        'pay': '15/hr',
-                        'description': 'Our on-campus startup is in need of a full-stack capable developer who can create our product over 2 months. Must be available at least twice a week for meetings/status updates.',
-                        'time': '3 hour',
-                        'seller_first': 'David',
-                        'seller_last': 'Alexander',
-                        'seller_email': 'davida51@unc.edu'
-                        },
-            '13587456': {'id': '13587456',
-                        'category': 'Miscellaneous - Housing',
-                        'title': 'Apartment Roommate Opening',
-                        'college': 'UNC-Chapel Hill',
-                        'pay': '400',
-                        'description': 'Looking for a male roommate who can pay $400 rent each month. Apartment is 2 bedroom, 2 bath, with a kitchen and living area. Located right next to UNC and access to pool.',
-                        'time': '3 days',
-                        'seller_first': 'Neel',
-                        'seller_last': 'Runton',
-                        'seller_email': 'neelr216@unc.edu'
-                        }
-    }
-    # return positive response and listings that satisfy search query
+    ret = searchListings(search_param, search_val)
+
     return jsonify(ret), 200
 
 @app.route('/listing.user', methods=['POST'])
