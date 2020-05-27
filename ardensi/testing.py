@@ -61,7 +61,7 @@ def temp():
     return jsonify(ret), 200
 
 @app.route('/listing.searchTemp', methods=['POST']) # route is still /listing.search on gcloud
-def search():
+def temporary():
     req = request.json
 
     search_param = req['search']['param'] # college, title, main_cat, sub_cat
