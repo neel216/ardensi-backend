@@ -30,6 +30,6 @@ Use `make deploy` to push build to gcloud server, or:
 View live logs in terminal with `gcloud app logs tail -s default` NOTE: has delay
 
 #### TODO
-- Add database stuff, right now thinking of using MySQL
+- Add database stuff
 - Add content to empty api functions
 - Add phone number to user info?
