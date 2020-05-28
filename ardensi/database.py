@@ -10,7 +10,6 @@ users = []
 
 def addListing(listing):
     listings.append(listing)
-    print(listings)
 
 def searchAvailableListings(param, val):
     ret = {}
@@ -88,3 +87,9 @@ def buyListing(listing_id, buyer_first, buyer_last, buyer_email, buyer_college):
 
 def addUser(user):
     users.append(user)
+
+def compareUserCreds(param, val):
+    for user in users:
+        if user[param] == val:
+            return False # user is ok to register
+    return True # user with same info found

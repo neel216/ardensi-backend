@@ -6,30 +6,48 @@ from uuid import uuid4
 from datetime import datetime
 
 from ardensi.application import app
+from ardensi.config import DOMAINS, COLLEGES
+import ardensi.database as db
 
 
 @app.route('/user.signup', methods=['POST'])
 def signup():
     req = request.json
 
-    last_name = req['last_name']
-    first_name = req['first_name']
+    first = req['first']
+    last = req['last']
     email = req['email']
     password = req['password']
     
-    # check if email is taken - if it is, send back a 200 response but with a bad message
-    # check if password is taken - if it is, send back a 200 response but with a bad message
-
-    # check if email domain is a verified college email domain - if it isn't, send back a 200 response but with a bad message
+    if db.compareUserCreds('email', email) or db.compareUserCreds('password', password):
+        ret = {
+            'message': 'email and password must be unique'
+        }
+        return jsonify(ret), 200
     
-    # determine what college the user goes to based on email
-    
-    # generate timestamp for time_joined
+    domain = email.split('@')[1]
+    if domain not in DOMAINS:
+        ret = {
+            'message': 'email must be from a registered campus domain'
+        }
+        return jsonify(ret), 200
 
-    # generate user_id
-    # add user to db
+    user = {
+        'time_created': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'first_name': first,
+        'last_name': last,
+        'email': email,
+        'password': password,
+        'college': COLLEGES[domain]
+    }
 
-    # return positive response
+    db.addUser(user)
+
+    ret = {
+        'message': 'user created'
+    }
+
+    return jsonify(ret), 200
 
 @app.route('/user.login', methods=['POST'])
 def login():
