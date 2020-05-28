@@ -85,8 +85,8 @@ def search():
 def user():
     req = request.json
 
-    user_first = req['user']['first']
-    user_last = req['user']['last']
+    #user_first = req['user']['first']
+    #user_last = req['user']['last']
     user_email = req['user']['email']
 
     query_type = req['type'] # 'sold' listings, or 'purchased' listings
